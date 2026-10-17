@@ -1,0 +1,10 @@
+[
+  {
+    "modid": "visuals",
+    "name": "Momo Visuals",
+    "description": "Fog color, sky gradient and ambient particles.",
+    "version": "1.0",
+    "mcversion": "1.12.2",
+    "authorList": ["momo"]
+  }
+]
