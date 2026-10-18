@@ -16,5 +16,7 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(new FogHandler());
         MinecraftForge.EVENT_BUS.register(new SkyHandler());
         MinecraftForge.EVENT_BUS.register(new ParticleHandler());
+        MinecraftForge.EVENT_BUS.register(new ViewModelHandler());
+        MinecraftForge.EVENT_BUS.register(new HitboxHandler()); // Регистрация хитбоксов
     }
 }
