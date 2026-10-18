@@ -13,13 +13,9 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class SkyHandler {
-
-    // Цвета градиента: верхний и нижний
-    private static final float TOP_R = 0.1f, TOP_G = 0.1f, TOP_B = 0.6f;
-    private static final float BOT_R = 0.8f, BOT_G = 0.2f, BOT_B = 0.2f;
-
     @SubscribeEvent
-    public void onRenderWorldLast(RenderWorldLastEvent event) {
+    public void onRender(RenderWorldLastEvent event) {
+        if (!Config.skyEnabled) return;
         Minecraft mc = Minecraft.getMinecraft();
         if (mc.player == null || mc.world == null) return;
 
@@ -40,10 +36,10 @@ public class SkyHandler {
         BufferBuilder buf = tess.getBuffer();
         buf.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
 
-        buf.pos(0, 0, 0).color(TOP_R, TOP_G, TOP_B, 0.3f).endVertex();
-        buf.pos(mc.displayWidth, 0, 0).color(TOP_R, TOP_G, TOP_B, 0.3f).endVertex();
-        buf.pos(mc.displayWidth, mc.displayHeight, 0).color(BOT_R, BOT_G, BOT_B, 0.3f).endVertex();
-        buf.pos(0, mc.displayHeight, 0).color(BOT_R, BOT_G, BOT_B, 0.3f).endVertex();
+        buf.pos(0, 0, 0).color(Config.skyTopR, Config.skyTopG, Config.skyTopB, 0.2f).endVertex();
+        buf.pos(mc.displayWidth, 0, 0).color(Config.skyTopR, Config.skyTopG, Config.skyTopB, 0.2f).endVertex();
+        buf.pos(mc.displayWidth, mc.displayHeight, 0).color(Config.skyBotR, Config.skyBotG, Config.skyBotB, 0.2f).endVertex();
+        buf.pos(0, mc.displayHeight, 0).color(Config.skyBotR, Config.skyBotG, Config.skyBotB, 0.2f).endVertex();
 
         tess.draw();
 
