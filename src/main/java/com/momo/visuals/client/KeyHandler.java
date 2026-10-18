@@ -2,9 +2,9 @@ package com.momo.visuals.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent; // Правильный импорт для 1.12.2
 import org.lwjgl.input.Keyboard;
 
 public class KeyHandler {
