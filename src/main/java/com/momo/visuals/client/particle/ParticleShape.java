@@ -8,45 +8,48 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 public class ParticleShape extends Particle {
-    private final int shape; // 0=круг, 1=квадрат, 2=звезда
+    private final int shape;
     private final float r, g, b;
 
     public ParticleShape(World world, double x, double y, double z, float r, float g, float b, int shape, double mx, double my, double mz) {
         super(world, x, y, z);
         this.r = r; this.g = g; this.b = b;
         this.shape = shape;
-        this.particleScale = 0.25f;
+        this.particleScale = 0.5f; // Сделал чуть больше, чтобы было видно
         this.motionX = mx; this.motionY = my; this.motionZ = mz;
         this.particleMaxAge = 40 + rand.nextInt(20);
         this.canCollide = false;
     }
 
     @Override
+    public int getFXLayer() {
+        return 0; // Важно! Заставляет движок рендерить частицу
+    }
+
+    @Override
     public void renderParticle(BufferBuilder buffer, Entity entity, float partialTicks, float rotX, float rotZ, float rotYZ, float rotXY, float rotXZ) {
         GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
-        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE); // Аддитивное свечение
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE); // Свечение
 
         float f = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
-        float scale = this.particleScale * (1.0f - f * f); // Плавно исчезает
+        float scale = this.particleScale * (1.0f - f * f);
 
-        // Вычисляем позицию с учетом интерполяции камеры (стандарт для 1.12.2)
         double x = this.posX - entity.posX;
         double y = this.posY - entity.posY;
         double z = this.posZ - entity.posZ;
 
-        // ВАЖНО: buffer.begin() и tess.draw() УБРАНЫ, так как движок уже делает это за нас.
         if (this.shape == 1) { // Квадрат
             buffer.pos(x - scale, y - scale, z).color(r, g, b, 1.0f).endVertex();
             buffer.pos(x + scale, y - scale, z).color(r, g, b, 1.0f).endVertex();
             buffer.pos(x + scale, y + scale, z).color(r, g, b, 1.0f).endVertex();
             buffer.pos(x - scale, y + scale, z).color(r, g, b, 1.0f).endVertex();
-        } else if (this.shape == 2) { // Звезда (упрощенная)
+        } else if (this.shape == 2) { // Звезда
             buffer.pos(x, y - scale, z).color(r, g, b, 1.0f).endVertex();
             buffer.pos(x + scale * 0.5f, y, z).color(r, g, b, 1.0f).endVertex();
             buffer.pos(x, y + scale, z).color(r, g, b, 1.0f).endVertex();
             buffer.pos(x - scale * 0.5f, y, z).color(r, g, b, 1.0f).endVertex();
-        } else { // Круг (упрощенный ромб)
+        } else { // Круг (ромб)
             buffer.pos(x, y - scale, z).color(r, g, b, 1.0f).endVertex();
             buffer.pos(x + scale, y, z).color(r, g, b, 1.0f).endVertex();
             buffer.pos(x, y + scale, z).color(r, g, b, 1.0f).endVertex();
