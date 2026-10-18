@@ -33,17 +33,19 @@ minecraft {
     }
 }
 
-// Репозиторий для скачивания стандартных библиотек Gradle
 repositories {
     mavenCentral()
+    // Репозиторий CurseForge для скачивания ArtemisLib
+    maven {
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
 }
 
 dependencies {
-    // Основная зависимость Minecraft Forge
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2864'
     
-    // Подключение локальной библиотеки ArtemisLib из папки libs
-    compile files('libs/ArtemisLib-1.12.2-v1.0.6.jar')
+    // Официальное подключение ArtemisLib
+    compile 'artemislib:ArtemisLib:1.12.2:v1.0.6'
 }
 
 jar {
