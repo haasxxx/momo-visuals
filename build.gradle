@@ -9,7 +9,6 @@ buildscript {
 }
         
 apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
@@ -21,14 +20,12 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: 'snapshot', version: '20171003-1.12'
-    
     runs {
         client {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
         }
-
         server {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
@@ -36,18 +33,17 @@ minecraft {
     }
 }
 
-// ВАЖНО: Добавлен репозиторий CurseForge Maven для скачивания ArtemisLib
+// Репозиторий для скачивания стандартных библиотек Gradle
 repositories {
     mavenCentral()
-    maven { url = "https://minecraft.curseforge.com/api/maven/" }
-    maven { url = "https://cursemaven.com" } // Резервный репозиторий, если основной не ответит
 }
 
 dependencies {
+    // Основная зависимость Minecraft Forge
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2864'
-
-    // ВАЖНО: Подключение библиотеки ArtemisLib для работы хитбоксов
-    compile 'artemislib:ArtemisLib:1.12.2:v1.0.6'
+    
+    // Подключение локальной библиотеки ArtemisLib из папки libs
+    compile files('libs/ArtemisLib-1.12.2-v1.0.6.jar')
 }
 
 jar {
