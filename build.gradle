@@ -35,17 +35,10 @@ minecraft {
 
 repositories {
     mavenCentral()
-    // Указываем Gradle искать локальные файлы в папке libs
-    flatDir {
-        dir 'libs'
-    }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2864'
-    
-    // Подключаем ArtemisLib из локальной папки libs
-    compile name: 'ArtemisLib-1.12.2-v1.0.6'
 }
 
 jar {

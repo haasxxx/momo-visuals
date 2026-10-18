@@ -28,12 +28,6 @@ public class GuiMomoMenu extends GuiScreen {
             y += 20;
             this.buttonList.add(new GuiButton(3, width / 2 - 100, y, "Форма: " + getShapeName(Config.ambientShape)));
             
-            // Хитбоксы
-            y += 25;
-            this.buttonList.add(new GuiButton(40, width / 2 - 100, y, "Хитбоксы: " + (Config.hitboxEnabled ? "ВКЛ" : "ВЫКЛ")));
-            y += 20;
-            this.buttonList.add(new GuiSliderFixed(41, width / 2 - 100, y, "Размер", Config.hitboxScale, 3.0f, 1.0f, val -> Config.hitboxScale = val));
-            
             this.buttonList.add(new GuiButton(100, width / 2 - 100, height - 50, "Настройки рук ->"));
         } else {
             this.buttonList.add(new GuiButton(20, width / 2 - 100, y, "View Model: " + (Config.viewModelEnabled ? "ВКЛ" : "ВЫКЛ")));
@@ -69,7 +63,6 @@ public class GuiMomoMenu extends GuiScreen {
         if (button.id == 2) Config.ambientParticles = !Config.ambientParticles;
         if (button.id == 3) Config.ambientShape = (Config.ambientShape + 1) % 3;
         if (button.id == 20) Config.viewModelEnabled = !Config.viewModelEnabled;
-        if (button.id == 40) Config.hitboxEnabled = !Config.hitboxEnabled;
 
         if (button.id == 10) { Config.fogR += 0.1f; if (Config.fogR > 1.0f) Config.fogR = 0.0f; }
         if (button.id == 11) { Config.fogG += 0.1f; if (Config.fogG > 1.0f) Config.fogG = 0.0f; }

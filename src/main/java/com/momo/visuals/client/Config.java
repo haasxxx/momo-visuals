@@ -23,8 +23,4 @@ public class Config {
     public static boolean viewModelEnabled = false;
     public static float vmPosX = 0.0f, vmPosY = 0.0f, vmPosZ = 0.0f;
     public static float vmRotX = 0.0f, vmRotY = 0.0f, vmRotZ = 0.0f;
-
-    // Хитбоксы
-    public static boolean hitboxEnabled = false;
-    public static float hitboxScale = 1.0f;
 }

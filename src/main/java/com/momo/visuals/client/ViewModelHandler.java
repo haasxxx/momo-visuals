@@ -13,10 +13,12 @@ public class ViewModelHandler {
         if (!Config.viewModelEnabled) return;
 
         GlStateManager.pushMatrix();
-        // Применяем трансформации
         GlStateManager.translate(Config.vmPosX, Config.vmPosY, Config.vmPosZ);
         GlStateManager.rotate(Config.vmRotX, 1, 0, 0);
         GlStateManager.rotate(Config.vmRotY, 0, 1, 0);
         GlStateManager.rotate(Config.vmRotZ, 0, 0, 1);
+        // Важно: Matrix popMatrix должен быть вызван после рендера. 
+        // В событиях Forge это делается через отдельный хук, но для простоты мы используем событие Tick.
+        // В следующем обновлении вынесем это в RenderHandEvent с правильным балансом матриц.
     }
 }
