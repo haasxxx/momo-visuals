@@ -35,17 +35,17 @@ minecraft {
 
 repositories {
     mavenCentral()
-    // Репозиторий CurseForge для скачивания ArtemisLib
-    maven {
-        url = "https://minecraft.curseforge.com/api/maven/"
+    // Указываем Gradle искать локальные файлы в папке libs
+    flatDir {
+        dir 'libs'
     }
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2864'
     
-    // Официальное подключение ArtemisLib
-    compile 'artemislib:ArtemisLib:1.12.2:v1.0.6'
+    // Подключаем ArtemisLib из локальной папки libs
+    compile name: 'ArtemisLib-1.12.2-v1.0.6'
 }
 
 jar {
